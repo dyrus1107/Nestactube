@@ -18,7 +18,7 @@ export default function Video({ setLoggedIn }) {
       try {
         const token = localStorage.getItem("token");
         const { data } = await axios.get(
-          `http://127.0.0.1:3002/api/v1/video?id=${videoId}`,
+          `${process.env.SERVER}/api/v1/video?id=${videoId}`,
           {
             headers: {
               Authorization: "Bearer " + token,
@@ -41,7 +41,7 @@ export default function Video({ setLoggedIn }) {
             <CardContent sx={{ flex: 1 }}>
               <video autoPlay controls width="200">
                 <source
-                  src={`http://localhost:3002/api/v1/video/${videoId}`}
+                  src={`${process.env.SERVER}/api/v1/video/${videoId}`}
                   type="video/mp4"
                 />
               </video>

@@ -29,8 +29,7 @@ export default function SignIn(props) {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:3002/api/v1/user/signin",
-        form
+        `${process.env.SERVER}/api/v1/user/signin`,form
       );
 
       if (data.status === 401) {

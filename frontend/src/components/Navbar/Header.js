@@ -70,7 +70,7 @@ export default function SearchAppBar({ isLoggedIn }) {
     formData.append("video", video);
     formData.append("cover", cover);
     const token = localStorage.getItem("token");
-    await axios.post("http://localhost:3002/api/v1/video", formData, {
+    await axios.post(`${process.env.SERVER}/api/v1/video`, formData, {
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -86,7 +86,7 @@ export default function SearchAppBar({ isLoggedIn }) {
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
-            Streamly
+            Nestactube
           </Typography>
           {isLoggedIn && (
             <>
