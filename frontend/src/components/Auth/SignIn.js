@@ -26,10 +26,13 @@ export default function SignIn(props) {
       email: formData.get("email"),
       password: formData.get("password"),
     };
+    console.log(process.env.REACT_APP_SERVER);
+    
 
     try {
       const { data } = await axios.post(
-        `${process.env.SERVER}/api/v1/user/signin`,form
+        `${process.env.REACT_APP_SERVER}/api/v1/user/signin`,
+        form
       );
 
       if (data.status === 401) {

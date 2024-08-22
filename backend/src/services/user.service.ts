@@ -18,12 +18,6 @@ export class UserService {
     private userModel: Model<UserDocument>,
   ) {}
 
-  /**
-   * Signs up a new user
-   * @param {User} user - The user data to sign up
-   * @returns {Promise<User>} - The newly created user document
-   */
-
   async signup(user: User): Promise<User> {
     const salt = await bcrypt.genSalt();
     const hash = await bcrypt.hash(user.password, salt);
@@ -35,12 +29,6 @@ export class UserService {
     return newUser.save();
   }
 
-  /**
-   * Signs in an existing user
-   * @param {User} user - The user data to sign in
-   * @param {JwtService} jwt - The JWT service instance
-   * @returns {Promise<any>} - The signed in user token
-   */
   async signin(user: User, jwt: JwtService): Promise<any> {
     const foundUser = await this.userModel
       .findOne({ email: user.email })

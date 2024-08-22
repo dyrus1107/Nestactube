@@ -39,7 +39,7 @@ export default function SignUp() {
       email: data.get("email"),
       password: data.get("password"),
     };
-    await axios.post(`${process.env.SERVER}/api/v1/user/signup`, form);
+    await axios.post(`${process.env.REACT_APP_SERVER}/api/v1/user/signup`, form);
     navigate("/");
   };
   return (

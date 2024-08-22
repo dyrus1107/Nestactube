@@ -1,26 +1,33 @@
-# Dockerfile
+# Base image
+FROM node:18
 
-# Build backend
-FROM node:14 as backend
-WORKDIR /app/backend
-COPY backend/package*.json ./
-RUN npm install
-COPY backend ./
-RUN npm run build
-EXPOSE 3002
+# Install supervisor
+RUN apt-get update && \
+    apt-get install -y supervisor
 
-# Build frontend
-FROM node:14 as frontend
-WORKDIR /app/frontend
-COPY frontend/package*.json ./
-RUN npm install
-COPY frontend ./
-RUN npm run build
+# Set working directory for backend
+WORKDIR /app
+
+# Copy both backend and frontend source code
+COPY backend /app/backend
+COPY frontend /app/frontend
+
+# Copy backend and frontend package.json files and install dependencies
+COPY backend/package*.json /app/backend/
+COPY frontend/package*.json /app/frontend/
+RUN cd /app/backend && npm install
+RUN cd /app/frontend && npm install
+
+# Build backend and frontend
+RUN cd /app/backend && npm run build
+RUN cd /app/frontend && npm run build
+
+# Copy supervisor configuration file
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+# Expose application ports
+EXPOSE 3003
 EXPOSE 3000
 
-# Create final image
-FROM node:14
-WORKDIR /app
-COPY --from=backend /app/backend .
-COPY --from=frontend /app/frontend .
-CMD ["npm", "run", "start"]
+# Start supervisor
+CMD ["/usr/bin/supervisord"]
