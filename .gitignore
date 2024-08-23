@@ -1,5 +1,3 @@
-fly.toml
-
 # dependencies
 node_modules
 dist
