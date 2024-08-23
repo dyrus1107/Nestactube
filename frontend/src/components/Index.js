@@ -1,18 +1,17 @@
+import { HashRouter, Route, Routes } from "react-router-dom";
 import SignIn from "./Auth/SignIn";
 import SignUp from "./Auth/SignUp";
 import Header from "./Navbar/Header";
-import VideoList from "./Video/VideoList";
 import Video from "./Video/Video";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import VideoList from "./Video/VideoList";
 
 export default function Index(props) {
   const { isLoggedIn, setLoggedIn } = props;
-  console.log(isLoggedIn);
   
   return (
     <div>
       <Header isLoggedIn={isLoggedIn} />
-      <BrowserRouter>
+      <HashRouter>
         {isLoggedIn ? (
           <Routes>
             <Route
@@ -38,7 +37,7 @@ export default function Index(props) {
             ></Route>
           </Routes>
         )}
-      </BrowserRouter>
+      </HashRouter>
     </div>
   );
 }
